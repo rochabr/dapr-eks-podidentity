@@ -179,6 +179,5 @@ kubectl logs -n dapr-test -l app=test-app -c daprd
 ## References
 
 - [EKS Pod Identity Documentation](https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html)
-- [Dapr Secrets Management](https://docs.dapr.io/developing-applications/building-blocks/secrets/)
 - [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/)
 - [Set up an Elastic Kubernetes Service (EKS) cluster](https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-eks/)
