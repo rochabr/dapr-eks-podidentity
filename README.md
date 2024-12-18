@@ -13,7 +13,7 @@ This guide walks through setting up Dapr with AWS EKS Pod Identity for accessing
 ## Step 0: Clone repository
 
 ```bash
-git clone github.com/rochabr/dapr-eks-podidentity.git
+git clone https://github.com/rochabr/dapr-eks-podidentity.git
 cd dapr-eks-podidentity
 ```
 
