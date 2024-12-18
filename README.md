@@ -10,19 +10,19 @@ This guide walks through setting up Dapr with AWS EKS Pod Identity for accessing
 - Docker installed and configured
 - A Docker Hub account or another container registry
 
-## Step 0: Clone repository
+## Clone repository
 
 ```bash
 git clone https://github.com/rochabr/dapr-eks-podidentity.git
 cd dapr-eks-podidentity
 ```
 
-## Step 1: Create EKS Cluster and install Dapr
+## Create EKS Cluster and install Dapr
 
 Follow the official Dapr documentation for setting up an EKS cluster and installing Dapr:
 [Set up an Elastic Kubernetes Service (EKS) cluster](https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-eks/)
 
-## Step 2: Create IAM Role and Enable Pod Identity
+## Create IAM Role and Enable Pod Identity
 
 1. Create IAM policy for Secrets Manager access:
 
@@ -74,7 +74,7 @@ aws iam attach-role-policy \
     --policy-arn arn:aws:iam::YOUR_ACCOUNT_ID:policy/dapr-secrets-policy
 ```
 
-## Step 4: Create Test Resources
+## Create Test Resources
 
 1. Create namespace:
 
@@ -114,7 +114,7 @@ aws secretsmanager create-secret \
 kubectl apply -f components/aws-secretstore.yaml
 ```
 
-## Step 5: Deploy Test Application
+## Deploy Test Application
 
 1. Build and push the Docker image:
 
@@ -130,7 +130,7 @@ docker push your-repository/dapr-secrets-test:latest
 kubectl apply -f deploy/app.yaml
 ```
 
-## Step 6: Testing
+## Testing
 
 1. Check if the pod is running:
 
@@ -167,14 +167,6 @@ Verify Pod Identity association:
 ```bash
 eksctl get podidentityassociation --cluster [your-cluster-name] --region [your-aws-region]]
 ```
-
-### Docker Image Issues
-
-If you see pull access denied errors, ensure you:
-
-1. Built the image correctly
-2. Pushed it to your registry
-3. Used the correct image name in the deployment YAML
 
 ### Dapr Component Issues
 
