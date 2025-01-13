@@ -165,7 +165,7 @@ aws eks update-kubeconfig --region [your-aws-region] --name [your-cluster-name]
 Verify Pod Identity association:
 
 ```bash
-eksctl get podidentityassociation --cluster [your-cluster-name] --region [your-aws-region]]
+eksctl get podidentityassociation --cluster [your-cluster-name] --region [your-aws-region]
 ```
 
 ### Dapr Component Issues
