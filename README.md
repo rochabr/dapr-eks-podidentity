@@ -1,6 +1,6 @@
-# Setting Up Dapr with AWS EKS Pod Identity and Secrets Manager
+# Setting Up Dapr with AWS EKS Pod Identity, AWS Secrets Manager, and Amazon S3
 
-This guide walks through setting up Dapr with AWS EKS Pod Identity for accessing AWS Secrets Manager.
+This guide walks through setting up Dapr with AWS EKS Pod Identity for accessing AWS Secrets Manager and Amazon S3.
 
 ## Prerequisites
 
