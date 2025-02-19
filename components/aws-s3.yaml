@@ -1,0 +1,13 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: aws-s3
+  namespace: dapr-podidentity
+spec:
+  type: bindings.aws.s3
+  version: v1
+  metadata:
+  - name: bucket
+    value: "bucket-name" # Replace with your bucket name
+  - name: region
+    value: "us-east-1" # Replace with your region

@@ -44,7 +44,27 @@ aws iam create-policy \
     }'
 ```
 
-2. Create IAM role with Pod Identity trust relationship:
+2. Create IAM policy for S3 full access:
+
+```bash
+aws iam create-policy \
+    --policy-name dapr-s3-policy \
+    --policy-document '{
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:*",
+                    "s3-object-lambda:*"
+                ],
+                "Resource": "*"
+            }
+        ]
+    }'
+```
+
+3. Create IAM role with Pod Identity trust relationship:
 
 ```bash
 aws iam create-role \
@@ -66,12 +86,18 @@ aws iam create-role \
     }'
 ```
 
-3. Attach the policy to the role:
+4. Attach the policies to the role:
 
 ```bash
 aws iam attach-role-policy \
     --role-name dapr-pod-identity-role \
     --policy-arn arn:aws:iam::YOUR_ACCOUNT_ID:policy/dapr-secrets-policy
+```
+
+```bash
+aws iam attach-role-policy \
+    --role-name dapr-pod-identity-role \
+    --policy-arn arn:aws:iam::YOUR_ACCOUNT_ID:policy/dapr-s3-policy
 ```
 
 ## Create Test Resources
@@ -108,10 +134,18 @@ aws secretsmanager create-secret \
     --region [your-aws-region]
 ```
 
-5. Create Dapr component for AWS Secrets Manager (`aws-secretstore.yaml`):
+5. Create S3 bucket:
 
 ```bash
-kubectl apply -f components/aws-secretstore.yaml
+aws s3api create-bucket --bucket [your-bucket-name] --region [your-aws-region]
+```
+
+6. Create Dapr component for AWS Secrets Manager (`aws-secretstore.yaml`) and AWS S3 (`aws-s3.yaml`):
+
+> Update the necessary values on both component files before running the command below.
+
+```bash
+kubectl apply -f components/
 ```
 
 ## Deploy Test Application
@@ -125,6 +159,8 @@ docker push your-repository/dapr-secrets-test:latest
 ```
 
 2. Apply the deployment:
+
+> Update the `image` attribute by adding your repository name.
 
 ```bash
 kubectl apply -f deploy/app.yaml
@@ -148,6 +184,14 @@ kubectl port-forward -n dapr-test deploy/test-app 8080:8080
 
 ```bash
 curl http://localhost:8080/test-secret
+```
+
+4. Test S3 access:
+
+```bash
+curl -X POST -H "Content-Type: application/json" \
+     -d '{"data": "Hello World"}' \
+     http://localhost:8080/create-s3
 ```
 
 ## Troubleshooting
